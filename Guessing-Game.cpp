@@ -2,8 +2,9 @@
 using namespace std;
 
 /**
- * @brief Returns the number of turns it took to guess the target number within the given range using divide & conquer method.
- * @note Time complexity = log n.
+ * @brief Returns the number of turns it took to guess the target number within the given range.
+ * It uses divide & conquer method.
+ * @note Time complexity = log(n). Ref. notion notes.
  * @ref Niche program found on Pg. 32. Algo in Nutshell
 */
 int turns(int targetNum, int startRange, int endRange){
@@ -40,7 +41,7 @@ int turns(int targetNum, int startRange, int endRange){
     // 2. The target wasn't found on the mid (line 16).
     // Thus, one of the low or high is our target numbers. This is an "intelligent" guess outside the while loop.
     // We count this guess as another "turn" thus we increment the turn by 1.
-    return ++turns;
+    return turns + 1;
 }
 
 
