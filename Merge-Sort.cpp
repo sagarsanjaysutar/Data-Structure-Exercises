@@ -1,71 +1,71 @@
+/**
+ * @brief Merge Sort
+ * @note Time complexity: n log(n): mergeSort(...) works in "log(n)" as it divides the input &
+ * merge(...) works in "n" as it has single loop.
+*/
+
 #include <iostream>
 #include <vector>
+#include <sstream>
 using namespace std;
 
-
-void printVec(vector<int> x){
-    for(int element :  x){
-        cout << element << " ";
+/**
+ * @brief Helper function to print vector.
+*/
+std::string vectorToString(vector<int> vec) {
+    std::stringstream vecStr;
+    vecStr << "{";
+    for (int i = 0; i < vec.size(); ++i) {
+        vecStr << vec[i];
+        if (i < vec.size() - 1)
+            vecStr << ", ";
     }
-    cout << "\n";
+    vecStr << "}\n";
+    return vecStr.str();
 }
 
+/**
+ * @brief Sorts & merges two vector. 
+ * @ref Refer the "Merge Step" diagram https://www.programiz.com/dsa/merge-sort 
+*/
 vector<int> merge(vector<int> leftVec, vector<int> rightVec){
-    vector<int> result;
-    result.reserve(leftVec.size() + rightVec.size());
-
-    if(leftVec.size() == 1 && rightVec.size() == 1){
-        
-        if(leftVec.at(0) < rightVec.at(0)){
-            result.push_back(leftVec.at(0));
-            result.push_back(rightVec.at(0));
-        }
-        else{
-            result.push_back(rightVec.at(0));
-            result.push_back(leftVec.at(0));
-        }
-        cout << "Both size 1: ";
-        printVec(result);
-        return result;
-    }
+    vector<int> result(leftVec.size() + rightVec.size());
     
-    cout << "Left Vec: ";
-    printVec(leftVec);
-    cout << "Right Vec: ";
-    printVec(rightVec);
-    for(int i = 0, j = 0, k = 0; i < result.size(); i++){
+    // Append the lowest element b/w leftVec & rightVec into result in each iteration.  
+    for(int resIdx = 0, leftIdx = 0, rightIdx = 0; resIdx < result.size(); resIdx++){
 
-        if(leftVec.at(j) < rightVec.at(k)){
-            cout << "Left small \n";
-            result.push_back(leftVec.at(j));
-            j++;
+        if(leftIdx == leftVec.size() && rightIdx != rightVec.size()){
+            // Reached the end of leftVec, push back rest of the rightVec.
+            result.at(resIdx) = rightVec.at(rightIdx);
+            rightIdx++;
+        }
+        else if(leftIdx != leftVec.size() && rightIdx == rightVec.size()){
+            // Reached the end of rightVec, push back rest of the leftVec.
+            result.at(resIdx) = leftVec.at(leftIdx);
+            leftIdx++;
+        } 
+        else if(leftVec.at(leftIdx) < rightVec.at(rightIdx)){
+            // Append the lowest b/w leftVec & rightVec
+            result.at(resIdx) = leftVec.at(leftIdx);
+            leftIdx++;
         }
         else{
-            cout << "Right small \n";
-            result.push_back(rightVec.at(k));
-            k++;
+            // Append the lowest b/w leftVec & rightVec
+            result.at(resIdx) = rightVec.at(rightIdx);
+            rightIdx++;
         }
-
-        if(j == leftVec.size() - 1 && k != rightVec.size()){
-            cout << "Push back rest of the K's element\n";
-            result.insert(result.end(), rightVec.begin() + k, rightVec.end());
-        }
-        else if(j != leftVec.size() - 1 && k == rightVec.size()){
-            cout << "Push back rest of the J's element\n";
-            result.insert(result.end(), leftVec.begin() + j, leftVec.end());
-        }            
     }
 
-    cout << "Both size > 1: ";
-    printVec(result);
     return result;
 }
 
+/**
+ * @brief Recursively divides the vec into the smallest units, passes it to the merge(..) & returns a sorted vector.
+*/
 vector<int> mergeSort(vector<int> vec){
-    cout << "-- " << vec.size() << " | ";
-    printVec(vec);
     
-    if (vec.size() == 1) {
+    if (vec.size() <= 1) {
+        // Invalid array sizes.
         return vec;
     }
     else
@@ -74,11 +74,8 @@ vector<int> mergeSort(vector<int> vec){
         int end = vec.size() - 1;
         int mid = vec.size() / 2;
 
-        cout << "xxxxxx\n";
         vector<int> leftVec(mergeSort(vector<int>(vec.begin(), vec.begin() + mid)));
-        cout << "=====\n";
         vector<int> rightVec(mergeSort(vector<int>(vec.begin() + mid, vec.end())));
-        cout << "yyyyy\n";
 
         return merge(leftVec, rightVec);
     }
@@ -86,11 +83,10 @@ vector<int> mergeSort(vector<int> vec){
 
 
 int main(){
-    
-    vector<int> x = {8, 12, 17, 13, 8};
-    cout << "pppppppppppppp ";
-    printVec(mergeSort(x));
-    cout << "\n\n";
+    vector<int> x = {1, 2, 3, 2, 4, 5, 3, 6, 7, 1};
+
+    cout << "Original Vector: " << vectorToString(x);
+    cout << "Sorted Vector: " << vectorToString(mergeSort(x));
 
     return 0;
 }
