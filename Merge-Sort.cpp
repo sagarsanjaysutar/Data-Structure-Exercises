@@ -12,10 +12,10 @@ void printVec(vector<int> x){
 
 vector<int> merge(vector<int> leftVec, vector<int> rightVec){
     vector<int> result;
-    
+    result.reserve(leftVec.size() + rightVec.size());
 
     if(leftVec.size() == 1 && rightVec.size() == 1){
-        cout << "Both size 1\n";
+        
         if(leftVec.at(0) < rightVec.at(0)){
             result.push_back(leftVec.at(0));
             result.push_back(rightVec.at(0));
@@ -24,39 +24,40 @@ vector<int> merge(vector<int> leftVec, vector<int> rightVec){
             result.push_back(rightVec.at(0));
             result.push_back(leftVec.at(0));
         }
+        cout << "Both size 1: ";
+        printVec(result);
         return result;
-    }
-
-    int idx = 0;
-    while(leftVec.size() > 1){
-        cout << "Sorting left\n";
-        if(leftVec.at(idx) < leftVec.at(idx+1))
-            result.push_back(leftVec.at(idx));
-        else
-            result.push_back(leftVec.at(idx));
-
-        idx++;
-    }
-
-    int idx = 0;
-    while(rightVec.size() > 1){
-        cout << "Sorting Right\n";
-        if(rightVec.at(idx) < rightVec.at(idx+1))
-            result.push_back(rightVec.at(idx));
-        else
-            result.push_back(rightVec.at(idx));
-                    
-        idx++;
     }
     
     cout << "Left Vec: ";
     printVec(leftVec);
     cout << "Right Vec: ";
     printVec(rightVec);
-    
-    result.reserve(leftVec.size() + rightVec.size());
-    result.insert(result.end(), leftVec.begin(), leftVec.end());
-    result.insert(result.end(), rightVec.begin(), rightVec.end());
+    for(int i = 0, j = 0, k = 0; i < result.size(); i++){
+
+        if(leftVec.at(j) < rightVec.at(k)){
+            cout << "Left small \n";
+            result.push_back(leftVec.at(j));
+            j++;
+        }
+        else{
+            cout << "Right small \n";
+            result.push_back(rightVec.at(k));
+            k++;
+        }
+
+        if(j == leftVec.size() - 1 && k != rightVec.size()){
+            cout << "Push back rest of the K's element\n";
+            result.insert(result.end(), rightVec.begin() + k, rightVec.end());
+        }
+        else if(j != leftVec.size() - 1 && k == rightVec.size()){
+            cout << "Push back rest of the J's element\n";
+            result.insert(result.end(), leftVec.begin() + j, leftVec.end());
+        }            
+    }
+
+    cout << "Both size > 1: ";
+    printVec(result);
     return result;
 }
 
@@ -95,47 +96,4 @@ int main(){
 }
 
 
-/******************************************************************************
 
-                              Online C++ Compiler.
-               Code, Compile, Run and Debug C++ program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-void printVec(vector<int> x){
-    for(int element :  x){
-        cout << element << " ";
-    }
-    cout << "\n";
-}
-
-int main()
-{
-    vector<int> rightVec = {8, 12, 17, 13, 8};
-    vector<int> result;
-    
-    
-    int low = 0;
-    for(int i = 0, j = 0; j < rightVec.size()-1; j++){
-        
-        // if(rightVec.at(j) < rightVec.at(j+1))
-        //   result.push_back(rightVec.at(j));
-        // else
-        //   result.push_back(rightVec.at(j+1));
-        cout << i << " " << j << endl;
-        
-        if(j == rightVec.size() - 1){
-            i++;
-        }
-        
-    }
-    
-    printVec(result);
-    return 0;
-}
