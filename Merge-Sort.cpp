@@ -6,23 +6,9 @@
 
 #include <iostream>
 #include <vector>
-#include <sstream>
-using namespace std;
+#include "Utils.cpp"
 
-/**
- * @brief Helper function to print vector.
-*/
-std::string vectorToString(vector<int> vec) {
-    std::stringstream vecStr;
-    vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i) {
-        vecStr << vec[i];
-        if (i < vec.size() - 1)
-            vecStr << ", ";
-    }
-    vecStr << "}\n";
-    return vecStr.str();
-}
+using namespace std;
 
 /**
  * @brief Sorts & merges two vector. 
