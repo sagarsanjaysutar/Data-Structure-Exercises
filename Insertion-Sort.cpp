@@ -26,6 +26,8 @@ int main(){
         int value = intVec.at(i);
 
         // value is smaller than preceding element, push rest of the element ahead.
+        // This is an expensive operation as "values" are being pushed to new memory addresses.
+        // A "pointer" based array would've been more efficient.
         while(j >= 0 && value < intVec.at(j)){            
             intVec.at(j + 1) = intVec.at(j);
             j--;
