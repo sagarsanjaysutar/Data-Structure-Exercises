@@ -14,6 +14,6 @@ std::string vectorToString(std::vector<int> vec) {
         if (i < vec.size() - 1)
             vecStr << ", ";
     }
-    vecStr << "}\n";
+    vecStr << "}";
     return vecStr.str();
 }

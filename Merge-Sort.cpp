@@ -15,34 +15,34 @@ using namespace std;
  * @ref Refer the "Merge Step" diagram https://www.programiz.com/dsa/merge-sort 
 */
 vector<int> merge(vector<int> leftVec, vector<int> rightVec){
-    vector<int> result(leftVec.size() + rightVec.size());
+    vector<int> resultVec(leftVec.size() + rightVec.size());
     
-    // Append the lowest element b/w leftVec & rightVec into result in each iteration.  
-    for(int resIdx = 0, leftIdx = 0, rightIdx = 0; resIdx < result.size(); resIdx++){
+    // Append the lowest element b/w leftVec & rightVec into the resultVec in each iteration.  
+    for(int resIdx = 0, leftIdx = 0, rightIdx = 0; resIdx < resultVec.size(); resIdx++){
 
         if(leftIdx == leftVec.size() && rightIdx != rightVec.size()){
-            // Reached the end of leftVec, push back rest of the rightVec.
-            result.at(resIdx) = rightVec.at(rightIdx);
+            // Reached the end of leftVec, push back rest of the sorted rightVec into resultVec
+            resultVec.at(resIdx) = rightVec.at(rightIdx);
             rightIdx++;
         }
         else if(leftIdx != leftVec.size() && rightIdx == rightVec.size()){
-            // Reached the end of rightVec, push back rest of the leftVec.
-            result.at(resIdx) = leftVec.at(leftIdx);
+            // Reached the end of rightVec, push back rest of the sorted leftVec into resultVec
+            resultVec.at(resIdx) = leftVec.at(leftIdx);
             leftIdx++;
         } 
         else if(leftVec.at(leftIdx) < rightVec.at(rightIdx)){
             // Append the lowest b/w leftVec & rightVec
-            result.at(resIdx) = leftVec.at(leftIdx);
+            resultVec.at(resIdx) = leftVec.at(leftIdx);
             leftIdx++;
         }
         else{
             // Append the lowest b/w leftVec & rightVec
-            result.at(resIdx) = rightVec.at(rightIdx);
+            resultVec.at(resIdx) = rightVec.at(rightIdx);
             rightIdx++;
         }
     }
 
-    return result;
+    return resultVec;
 }
 
 /**
@@ -56,8 +56,6 @@ vector<int> mergeSort(vector<int> vec){
     }
     else
     {
-        int start = vec.at(0);
-        int end = vec.size() - 1;
         int mid = vec.size() / 2;
 
         vector<int> leftVec(mergeSort(vector<int>(vec.begin(), vec.begin() + mid)));
@@ -71,8 +69,8 @@ vector<int> mergeSort(vector<int> vec){
 int main(){
     vector<int> x = {1, 2, 3, 2, 4, 5, 3, 6, 7, 1};
 
-    cout << "Original Vector: " << vectorToString(x);
-    cout << "Sorted Vector: " << vectorToString(mergeSort(x));
+    cout << "Original Vector: " << vectorToString(x) << endl;
+    cout << "Sorted Vector: " << vectorToString(mergeSort(x)) << endl;
 
     return 0;
 }

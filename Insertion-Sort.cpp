@@ -15,7 +15,7 @@ int main(){
 
     vector<int> intVec = {1, 2, 3, 2, 4, 5, 3, 6, 7, 1};
 
-    cout << "Original Array: " << vectorToString(intVec);
+    cout << "Original Array: " << vectorToString(intVec) << endl;
 
     for(int i = 1; i < intVec.size(); i++){
 
@@ -37,5 +37,5 @@ int main(){
         intVec.at(j + 1) = value;
     }
 
-    cout << "Sorted Array: " << vectorToString(intVec);
+    cout << "Sorted Array: " << vectorToString(intVec) << endl;
 }
