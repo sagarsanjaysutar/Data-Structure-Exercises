@@ -2,6 +2,8 @@
  * @brief Merge Sort
  * @note Time complexity: n log(n): mergeSort(...) works in "log(n)" as it divides the input &
  * merge(...) works in "n" as it has single loop.
+ * 
+ * @ref https://www.programiz.com/dsa/merge-sort 
 */
 
 #include <iostream>
@@ -67,11 +69,9 @@ vector<int> mergeSort(vector<int> vec){
 
 
 int main(){
-    vector<int> x = {1, 2, 3, 2, 4, 5, 3, 6, 7, 1};
-
-    cout << "Original Vector: " << vectorToString(x) << endl;
-    cout << "Sorted Vector: " << vectorToString(mergeSort(x)) << endl;
-
+    vector<int> vec = {1, 2, 3, 2, 4, 5, 3, 6, 7, 1};
+    cout << "Original Vector: " << vectorToString(vec) << endl;
+    cout << "Sorted Vector: " << vectorToString(mergeSort(vec)) << endl;
     return 0;
 }
 

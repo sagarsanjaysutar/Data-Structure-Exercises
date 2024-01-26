@@ -1,11 +1,12 @@
 /**
- * \brief QuickSort: Divide & Conquer. 
+ * @brief QuickSort: Divide & Conquer. 
  * 1. Select a pivot point. 
  * 2. Rearrange vec such that smaller elements are on left of pivot & greater ones are on right.
  * 3. Divide the rearranged vec. from the pivot point recursively.
  * 4. Merge the result two vec. & return.
  * 
- * \note The rearrange part isn't the most optimal as it makes the solution O(n^2)
+ * @note The rearrange part isn't the most optimal as it makes the solution O(n^2)
+ * @ref https://www.programiz.com/dsa/quick-sort 
 */
 
 #include <iostream>
