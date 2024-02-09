@@ -6,6 +6,9 @@
  * Most the problems revolves around left & right compaision.
  * For now, I'm moving on.
  * 
+ * @ref https://www.algolist.net/Algorithms/Sorting/Quicksort 
+ * https://stackoverflow.com/questions/27886150/quick-sort-with-middle-element-as-pivot 
+ * 
  */
 
 #include <iostream>
