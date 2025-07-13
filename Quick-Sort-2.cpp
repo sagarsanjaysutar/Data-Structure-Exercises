@@ -3,7 +3,7 @@
  * 
  * Problem with this solution is when duplicate occur.
  * e.g. Sorting the sub arr of {51, 132, 349, 204, 426, 388, 462, 105, 324, 0} ->  {51, 132, 349, 204, 0}, the zero here never goes to the 0th position
- * Most the problems revolves around left & right compaision.
+ * Most the problems revolves around left & right comparision.
  * For now, I'm moving on.
  * 
  * @ref https://www.algolist.net/Algorithms/Sorting/Quicksort 
