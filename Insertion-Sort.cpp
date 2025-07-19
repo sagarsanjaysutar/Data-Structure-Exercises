@@ -1,8 +1,7 @@
 /**
  * @brief Insertion Sort
  *  
- * In this algorithm, the left portion of the array becomes sorted first.
- * If a smaller element is found, it is placed in "correct position" among the left-sorted portion.
+ * In this algorithm, an element is inserted in its "correct position" amongst the left-sorted portion of the array.
  * 
  * 1. The outer loop represents a pass.
  * 2. The inner loop works in a reverse way. It iterates from i & goes till 0.
