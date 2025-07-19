@@ -1,9 +1,18 @@
 /**
  * @brief Insertion Sort
- * Iteratively builds sorted portion of the array by comparing a given element
- * & inserting it into right position within the sorted array.
+ *  
+ * In this algorithm, the left portion of the array becomes sorted first.
+ * If a smaller element is found, it is placed in "correct position" among the left-sorted portion.
+ * 
+ * 1. The outer loop represents a pass.
+ * 2. The inner loop works in a reverse way. It iterates from i & goes till 0.
+ *    If a smaller element is found while iterating, then the array is right-shifted
+ *    & the smaller element is added to the "correct position".
+ *    This "correct position" is calculated using a clever logic.
  *
  * @note Time Complexity: O(n^2)
+ * @note To understand this algorithm, one needs to know about right shifting an array using a reverse loop.
+ *       It's a bit un intuitive as left-shifting using forward loop is more intuitive.
  */
 #include <iostream>
 #include <vector>
@@ -14,31 +23,51 @@ using namespace std;
 int main()
 {
 
-    vector<int> intVec = {1, 2, 3, 2, 4, 5, 3, 6, 7, 1};
+    vector<int> intVec = {8, 7, 6, 5, 4, 3, 2, 1, 0};
 
-    cout << "Original Array: " << vectorToString(intVec) << endl;
+    cout << "Original Array: \t\t" << vectorToString(intVec) << endl;
 
+    // Start from 1st idx as 0th is considered sorted.
     for (int i = 1; i < intVec.size(); i++)
     {
-
-        // In each iteration, i & j generates a "sorted" portion of the array.
-        int j = i - 1;
-
-        // value being compared.
+        // Value that needs to be compared.
         int value = intVec.at(i);
 
-        // value is smaller than preceding element, push rest of the element ahead.
-        // This is an expensive operation as "values" are being pushed to new memory addresses.
-        // A "pointer" based array would've been more efficient.
-        while (j >= 0 && value < intVec.at(j))
+        // This needs to be initialized outside inner loop. 
+        // It helps in finding the "correct position" of the "value"
+        int j = i;
+
+        // If "value" is smaller than the preceding element then,
+        //  - we right-shift all elements
+        //  - place the "value" in the "correct position".
+        for (j; j > 0 && intVec.at(j - 1) > value; j--)
         {
-            intVec.at(j + 1) = intVec.at(j);
-            j--;
+            intVec.at(j) = intVec.at(j - 1);
         }
 
-        // value being "inserted" after all elements are pushed ahead.
-        intVec.at(j + 1) = value;
+        // Once the inner loop exits, j represents the "correct position" of "value".
+        intVec.at(j) = value;
     }
-
-    cout << "Sorted Array: " << vectorToString(intVec) << endl;
 }
+
+/**
+ * This code is not needed but helps in understanding some core insertion sort logic.
+ *
+    // Left-Shifting logic
+    // for (int i = 0; i < intVec.size() - 1; i++)
+    // {
+    //     intVec.at(i) = intVec.at(i + 1);
+    //     cout << "Shifted Array at " << i << " index: \t" << vectorToString(intVec) << endl;
+    // }
+    // return 0;
+
+    // Right Shifting logic
+    // for (int i = intVec.size() - 1; i > 0; --i)
+    // {
+    //     intVec.at(i) = intVec.at(i - 1);
+    //     cout << "Shifted Array at " << i << " index: \t" << vectorToString(intVec) << endl;
+    // }
+    // return 0;
+
+    // cout << "Shifted Array: \t\t" << vectorToStering(intVec) << endl;
+ */
