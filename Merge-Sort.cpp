@@ -1,5 +1,8 @@
 /**
  * @brief Merge Sort
+ * 
+ * In this algorithm, we recursively divide the array in two halves, sort those half & merge the sorted halves.
+ * 
  * @note Time complexity: n log(n): mergeSort(...) works in "log(n)" as it divides the input &
  * merge(...) works in "n" as it has single loop.
  *

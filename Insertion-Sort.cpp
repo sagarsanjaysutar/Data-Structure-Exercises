@@ -1,8 +1,8 @@
 /**
  * @brief Insertion Sort
- *  
+ *
  * In this algorithm, an element is inserted in its "correct position" amongst the left-sorted portion of the array.
- * 
+ *
  * 1. The outer loop represents a pass.
  * 2. The inner loop works in a reverse way. It iterates from i & goes till 0.
  *    If a smaller element is found while iterating, then the array is right-shifted
@@ -24,7 +24,7 @@ int main()
 
     vector<int> intVec = {8, 7, 6, 5, 4, 3, 2, 1, 0};
 
-    cout << "Original Array: \t\t" << vectorToString(intVec) << endl;
+    cout << "Original Vector: " << vectorToString(intVec) << endl;
 
     // Start from 1st idx as 0th is considered sorted.
     for (int i = 1; i < intVec.size(); i++)
@@ -32,7 +32,7 @@ int main()
         // Value that needs to be compared.
         int value = intVec.at(i);
 
-        // This needs to be initialized outside inner loop. 
+        // This needs to be initialized outside inner loop.
         // It helps in finding the "correct position" of the "value"
         int j = i;
 
@@ -47,6 +47,8 @@ int main()
         // Once the inner loop exits, j represents the "correct position" of "value".
         intVec.at(j) = value;
     }
+
+    cout << "Sorted Vector: " << vectorToString(intVec) << endl;
 }
 
 /**
