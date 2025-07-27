@@ -34,7 +34,7 @@ map<int, vector<int>> rearrangeVec(vector<int> vec)
         {
             int maxVal = vec.at(idx);
 
-            // Place the maxVal at the end of vector & shift all elements backward by 1.
+            // Place the maxVal at the end of vector & shift all elements towards left by 1.
             for (int i = idx; i < vec.size() - 1; i++)
             {
                 vec.at(i) = vec.at(i + 1);
@@ -81,8 +81,9 @@ vector<int> quickSort(vector<int> vec)
 
 int main()
 {
-    vector<int> vec({8, 1, 2, 3, 2, 4, 5, 3, 6, 7, 1});
+    vector<int> vec = getRandomVector();
     cout << "Original Vector: " << vectorToString(vec) << endl;
-    cout << "Sorted Vector: " << vectorToString(quickSort(vec)) << endl;
+    vector<int> sortedVec(quickSort(vec));
+    cout << "Sorted Vector: " << vectorToString(sortedVec) << endl;
     return 0;
 }
