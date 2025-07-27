@@ -30,7 +30,7 @@ map<int, vector<int>> rearrangeVec(vector<int> vec)
 
         // Condition: If maxVal is found, push it to the end.
         // Note: This is a non-optimal solution because of the 2 loops.
-        if (vec.at(idx) > vec.at(pivotIdx))
+        if (vec.at(idx) >= vec.at(pivotIdx))
         {
             int maxVal = vec.at(idx);
 
@@ -43,15 +43,13 @@ map<int, vector<int>> rearrangeVec(vector<int> vec)
 
             // Since maxVal is moved to the end, pivot is shifted by -1
             pivotIdx--;
-
-            // Check if the mutated vector follows the Condition
-            if (vec.at(idx) > vec.at(pivotIdx))
-            {
-                continue;
-            }
         }
 
-        idx++;
+        // Check if the mutated vector follows the Condition
+        if (vec.at(idx) < vec.at(pivotIdx))
+        {
+            idx++;
+        }
     }
 
     return {{pivotIdx, vec}};
@@ -64,14 +62,18 @@ vector<int> quickSort(vector<int> vec)
         return vec;
     }
 
-    // Rearrange the vector
+    // Rearrange the vectorr
     map<int, vector<int>> res = rearrangeVec(vec);
     int pivotIdx = res.begin()->first;
     vector<int> rearrangedVec = res.begin()->second;
 
     // Recursively divide the vector from the pivot point
     vector<int> leftVec(quickSort(vector<int>(rearrangedVec.begin(), rearrangedVec.begin() + pivotIdx)));
-    vector<int> rightVec(quickSort(vector<int>(rearrangedVec.begin() + pivotIdx, rearrangedVec.end())));
+    // pivotIdx + 1: It is implied that the pivot is in correct position after calling rearrangeVec.
+    vector<int> rightVec(quickSort(vector<int>(rearrangedVec.begin() + pivotIdx + 1, rearrangedVec.end())));
+
+    // Add the sorted pivotIdx to the result.
+    leftVec.push_back(rearrangedVec.at(pivotIdx));
 
     // Merge the two sorted vector
     leftVec.insert(leftVec.end(), rightVec.begin(), rightVec.end());
