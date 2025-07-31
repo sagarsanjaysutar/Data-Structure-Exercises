@@ -24,6 +24,37 @@ string vectorToString(vector<int> vec)
 }
 
 /**
+ * @brief Helper function to print vector.
+ */
+string vectorToString2(vector<string> vec)
+{
+    stringstream vecStr;
+    vecStr << "{";
+    for (int i = 0; i < vec.size(); ++i)
+    {
+        vecStr << vec[i];
+        if (i < vec.size() - 1)
+            vecStr << ", ";
+    }
+    vecStr << "}";
+    return vecStr.str();
+}
+
+string vectorToString3(vector<bool> vec)
+{
+    stringstream vecStr;
+    vecStr << "{";
+    for (int i = 0; i < vec.size(); ++i)
+    {
+        vecStr << (vec[i] ? "True" : "False");
+        if (i < vec.size() - 1)
+            vecStr << ", ";
+    }
+    vecStr << "}";
+    return vecStr.str();
+}
+
+/**
  * Got this code from Perplexity.
  */
 int getRandomNumber(int low, int high)
