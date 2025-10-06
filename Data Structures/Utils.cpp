@@ -10,9 +10,9 @@ public:
     int data;
     Node *left;
     Node *right;
-
-    Node() : data(0), left(nullptr), right(nullptr) {};
-    Node(int value) : data(value), left(nullptr), right(nullptr) {};
+    int height;
+    Node() : data(0), left(nullptr), right(nullptr), height(1) {};
+    Node(int value) : data(value), left(nullptr), right(nullptr), height(1) {};
 };
 
 // Helper function to compute the height of the tree

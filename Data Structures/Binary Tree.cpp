@@ -1,3 +1,6 @@
+/**
+ * Refer: https://archive.codewithharry.com/videos/data-structures-and-algorithms-in-hindi-78/
+ */
 #include "Utils.cpp"
 #include <iostream>
 #include <string>
@@ -53,7 +56,7 @@ string getStringTreeFromVector(vector<Node *> tree) {
 }
 
 /**
- * @brief Validity operation
+ * @brief BST Validity operation
  */
 bool isBST(Node *root) {
     static Node *previousNode = nullptr;
@@ -196,6 +199,14 @@ Node *getInOrderPredecessor(Node *root) {
     return root;
 }
 
+Node *getInorderSuccessor(Node *root) {
+    root = root->right;
+    while (root->left != nullptr) {
+        root = root->left;
+    }
+    return root;
+}
+
 /**
  * @param root: The current node being processed. In the first pass, it is root of the whole tree.
  *              In subsequent recursive passes, it is node representing respective subtree.
@@ -260,14 +271,22 @@ int main() {
         / \ / \
        0  3 5 34
    */
-    Node *root = new Node(4);
-    Node *n1 = new Node(2);
-    Node *n2 = new Node(8);
+    // Node *root = new Node(4);
+    // Node *n1 = new Node(2);
+    // Node *n2 = new Node(8);
 
-    Node *n3 = new Node(0);
-    Node *n4 = new Node(3);
-    Node *n5 = new Node(5);
-    Node *n6 = new Node(34);
+    // Node *n3 = new Node(0);
+    // Node *n4 = new Node(3);
+    // Node *n5 = new Node(5);
+    // Node *n6 = new Node(34);
+
+    Node *root = new Node(5);
+    Node *n1 = new Node(3);
+    Node *n2 = new Node(6);
+
+    Node *n3 = new Node(2);
+    Node *n4 = new Node(4);
+    Node *n5 = new Node(7);
 
     root->left = n1;
     root->right = n2;
@@ -275,8 +294,7 @@ int main() {
     n1->left = n3;
     n1->right = n4;
 
-    n2->left = n5;
-    n2->right = n6;
+    n2->right = n5;
 
     if (!isBST(root)) {
         cout << "Tree is not balanced. Cannot perform further actions on this. " << endl;
@@ -306,18 +324,17 @@ int main() {
     cout << "\n";
 
     // Delete node
-    deleteNode(root, 4);
-    cout << "Tree Structure after deleting 4" << endl;
+    deleteNode(root, 3);
+    cout << "Tree Structure after deleting 3" << endl;
     printTree(root);
     cout << "\n";
 
-    // delete root; // No need to delete this as it's already removed in the delete function.
-    delete n1;
+    delete root;
+    // delete n1;   // No need to delete this as it's already moved to the root in the delete function.
     delete n2;
-    delete n3;
-    // delete n4;   // No need to delete this as it's already moved to the root in the delete function.
+    // delete n3; // No need to delete this as it's already moved to the root in the delete function.
+    delete n4;
     delete n5;
-    delete n6;
     delete newNode;
 
     return 0;
