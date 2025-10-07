@@ -101,37 +101,34 @@ Node *insert(Node *root, int key) {
     } else {
         return root; // Duplicate key
     }
+
     // #02. Update the height. (+1: Find the height of the tallest child subtree + Add 1 for the current node)
     root->height = max(getHeight(root->right), getHeight(root->left)) + 1;
 
-    // #03. Check the balance factor and accordingly rotate the tree.
+    // #03. Check balance factor after insertion in #00. Rotate accordingly.
     int bf = getBalanceFactor(root);
-    cout << "Balance factor at " << root->data << " " << bf << endl;
-    // #04. Insertion has happened by this point & recursion in #00 has ended.
-    // We have reached leaf node. root now represents that leaf node & not the original tree root.
-    if (bf < -1 && key < root->left->data) {
-        cout << "Left-left: Imbalance detected at " << root->data << " " << bf << endl;
-        // Left-left case has occured as key being inserted is less than left of root i.e. the key is inserted to the left of left subtree.
-        // Use right-rotate
-        root = rightRotate(root);
-    } else if (bf > 1 && key > root->right->data) {
-        // Right-Right case has occured as key being inserted is greater than the right of root. i.e. the key is inserted to the right of right subtree.
-        // Use left rotate
-        cout << "Right-Right: Imbalance detected at " << root->data << " " << bf << endl;
-        root = leftRotate(root);
-    } else if (bf < -1 && key > root->left->data) {
-        // Left-right case has occured as bf is -1 & key being inserted is greater than left of root. i.e. the key is inserted to the right of left subtree.
-        // Left-rotate with the respect to the child of imbalanced node, followed by right-rotate with respect to imbalanced node.
-        cout << "Left-Right: Imbalance detected at " << root->data << " " << bf << endl;
-        root->left = leftRotate(root->left);
-        root = rightRotate(root);
+    if (bf < -1) {
+        // Left heavy tree.
+        if (key < root->left->data) {
+            // Left-left case has occurred; perform right-rotation with respect to root node.
+            root = rightRotate(root);
+        } else if (key > root->left->data) {
+            // Left-right case has occurred; perform right rotation on child of root followed by left-rotation on root.
+            root->left = rightRotate(root->left);
+            root = leftRotate(root);
+        }
+    }
 
-    } else if (bf > 1 && key < root->right->data) {
-        // Right-left case has occured as bf is > 1 & key being inserted is less than the right of root i.e. the key is inserted to the left of right subtree.
-        // Right-rotate with respect to the child of imbalanced node, followed by left-rotate with respect to imbalanced node.
-        cout << "Right-Left: Imbalance detected at " << root->data << " " << bf << endl;
-        root->right = rightRotate(root->right);
-        root = leftRotate(root);
+    if (bf > 1) {
+        // Right heavy tree.
+        if (key > root->right->data) {
+            // Right-Right case has occurred; perform left-rotation with respect to root node.
+            root = leftRotate(root);
+        } else if (key < root->right->data) {
+            // Right-Left case has occurred; perform left rotate on child of root followed by right-rotation on root.
+            root->right = leftRotate(root->right);
+            root = rightRotate(root);
+        }
     }
 
     return root;
