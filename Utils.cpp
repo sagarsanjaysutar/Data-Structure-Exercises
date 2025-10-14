@@ -1,20 +1,18 @@
 #include <iostream>
+#include <map>
+#include <random>
 #include <sstream>
 #include <vector>
-#include <random>
-#include <map>
 
 using namespace std;
 
 /**
  * @brief Helper function to print vector.
  */
-string vectorToString(vector<int> vec)
-{
+string vectorIntToString(vector<int> vec) {
     stringstream vecStr;
     vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i)
-    {
+    for (int i = 0; i < vec.size(); ++i) {
         vecStr << vec[i];
         if (i < vec.size() - 1)
             vecStr << ", ";
@@ -26,12 +24,10 @@ string vectorToString(vector<int> vec)
 /**
  * @brief Helper function to print vector.
  */
-string vectorToString2(vector<string> vec)
-{
+string vectorStringToString(vector<string> vec) {
     stringstream vecStr;
     vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i)
-    {
+    for (int i = 0; i < vec.size(); ++i) {
         vecStr << vec[i];
         if (i < vec.size() - 1)
             vecStr << ", ";
@@ -40,12 +36,10 @@ string vectorToString2(vector<string> vec)
     return vecStr.str();
 }
 
-string vectorToString3(vector<bool> vec)
-{
+string vectorBoolToString(vector<bool> vec) {
     stringstream vecStr;
     vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i)
-    {
+    for (int i = 0; i < vec.size(); ++i) {
         vecStr << (vec[i] ? "True" : "False");
         if (i < vec.size() - 1)
             vecStr << ", ";
@@ -57,8 +51,7 @@ string vectorToString3(vector<bool> vec)
 /**
  * Got this code from Perplexity.
  */
-int getRandomNumber(int low, int high)
-{
+int getRandomNumber(int low, int high) {
     static std::mt19937 gen{std::random_device{}()};
     return std::uniform_int_distribution<>(low, high)(gen);
 }
@@ -67,8 +60,7 @@ int getRandomNumber(int low, int high)
  * Returns a random vector.
  * This is to stress test the code on variety of vectors.
  */
-vector<int> getRandomVector()
-{
+vector<int> getRandomVector() {
     map<int, vector<int>> randomVectors;
 
     randomVectors[0] = {3, 4, 5, 2, 3, 4, 5, 3, 34, 5};
@@ -95,4 +87,16 @@ vector<int> getRandomVector()
     randomVectors[21] = {51, 132, 349, 204, 426, 388, 462, 105, 324, 0};
 
     return randomVectors.at(getRandomNumber(0, randomVectors.size() - 1));
+}
+
+void printVectorOfVectors(const vector<vector<int>> &vec) {
+    for (size_t i = 0; i < vec.size(); ++i) {
+        cout << "Path " << i << ": [";
+        for (size_t j = 0; j < vec[i].size(); ++j) {
+            cout << vec[i][j];
+            if (j + 1 < vec[i].size())
+                cout << ", ";
+        }
+        cout << "] No. of elements: " << vec[i].size() << "\n";
+    }
 }

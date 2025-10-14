@@ -24,6 +24,7 @@ int getBalanceFactor(Node *root) {
  * @note Right-Right case. A node is added to the right of the right subtree.
  * @brief Left rotate with respect to the unbalanced node (root).
  *
+ * In the below example, the unbalanced node is 9 (calculated using balancing factor). Thus is the below tree left-rotated.
  * Before:                After:
  *   9                     15
  *  / \                   /  \

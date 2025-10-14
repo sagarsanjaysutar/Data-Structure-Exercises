@@ -39,10 +39,10 @@
  *
  */
 
-#include <iostream>
-#include <vector>
-#include <map>
 #include "Utils.cpp"
+#include <iostream>
+#include <map>
+#include <vector>
 
 using namespace std;
 
@@ -59,8 +59,7 @@ using namespace std;
  *                       When a lesser element is found on right but no greater element is found on left of the pivotIdx.
  *                       When the above two condition occur, the lesser or the greater element is swapped with the pivotIdx.
  */
-pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
-{
+pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx) {
     // Left pointer going from beginning of the vector till the rightPtr to find elements greater than the pivot.
     int leftPtr = 0;
 
@@ -76,17 +75,14 @@ pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
     // Indicates if a smaller element is found on the right of the pivotIdx.
     bool rightSwap = false;
 
-    while (true)
-    {
+    while (true) {
 
-        if (leftPtr >= rightPtr)
-        {
+        if (leftPtr >= rightPtr) {
             // If leftPtr goes beyond rightPtr then break the loop & return the rearranged vector.
             return {pivotIdx, vec};
         }
 
-        if (vec.at(leftPtr) >= pivotValue)
-        {
+        if (vec.at(leftPtr) >= pivotValue) {
             // If a greater element is found on the leftPtr, then update the flag.
             leftSwap = true;
 
@@ -97,8 +93,7 @@ pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
              * it means there is no lesser element on the right to swap the greater element with.
              * Thus swap the greater element with the pivot.
              * */
-            if (rightPtr == pivotIdx)
-            {
+            if (rightPtr == pivotIdx) {
                 // Swap pivot with the leftPtr.
                 swap(vec.at(pivotIdx), vec.at(leftPtr));
 
@@ -109,15 +104,12 @@ pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
                 leftSwap = false;
                 rightSwap = false;
             }
-        }
-        else
-        {
+        } else {
             // If a greater element is not found, then increment the pointer & goto next element.
             leftPtr++;
         }
 
-        if (vec.at(rightPtr) < pivotValue)
-        {
+        if (vec.at(rightPtr) < pivotValue) {
             // If a lesser element is found on rightPtr, then update the flag.
             rightSwap = true;
 
@@ -128,8 +120,7 @@ pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
              * it means there is no greater element on the left to swap the lesser element with.
              * Thus swap the lesser element with the pivot.
              */
-            if (leftPtr == pivotIdx)
-            {
+            if (leftPtr == pivotIdx) {
                 // Swap the pivot with the leftPtr.
                 swap(vec.at(pivotIdx), vec.at(rightPtr));
 
@@ -140,9 +131,7 @@ pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
                 leftSwap = false;
                 rightSwap = false;
             }
-        }
-        else
-        {
+        } else {
             // If lesser element is not found, then decrement the pointer & goto preceding element.
             rightPtr--;
         }
@@ -152,8 +141,7 @@ pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
          *
          * If a lesser element is found on left & greater element is found on right, then swap both of them.
          */
-        if (leftSwap && rightSwap)
-        {
+        if (leftSwap && rightSwap) {
             // Swap both elements.
             swap(vec.at(leftPtr), vec.at(rightPtr));
 
@@ -164,15 +152,11 @@ pair<int, vector<int>> rearrangeVec(vector<int> vec, int pivotIdx)
     }
 }
 
-vector<int> quickSort(vector<int> vec)
-{
+vector<int> quickSort(vector<int> vec) {
 
-    if (vec.size() <= 1)
-    {
+    if (vec.size() <= 1) {
         return vec;
-    }
-    else
-    {
+    } else {
         // Middle point as the pivot.
         int pivotIdx = (vec.size()) / 2;
         pair<int, vector<int>> res = rearrangeVec(vec, pivotIdx);
@@ -196,11 +180,10 @@ vector<int> quickSort(vector<int> vec)
     }
 }
 
-int main()
-{
+int main() {
     vector<int> vec = getRandomVector();
-    cout << "Original Vector: " << vectorToString(vec) << endl;
+    cout << "Original Vector: " << vectorIntToString(vec) << endl;
     vector<int> sortedVec(quickSort(vec));
-    cout << "Sorted Vector: " << vectorToString(sortedVec) << endl;
+    cout << "Sorted Vector: " << vectorIntToString(sortedVec) << endl;
     return 0;
 }

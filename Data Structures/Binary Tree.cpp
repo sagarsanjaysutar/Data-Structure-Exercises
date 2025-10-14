@@ -1,6 +1,7 @@
 /**
  * Refer: https://archive.codewithharry.com/videos/data-structures-and-algorithms-in-hindi-78/
  */
+#include "../Utils.cpp"
 #include "Utils.cpp"
 #include <iostream>
 #include <string>
@@ -8,51 +9,43 @@
 
 using namespace std;
 
-vector<Node *> getPreOrderTree(Node *root) {
-    vector<Node *> nodes;
+vector<int> getPreOrderTree(Node *root) {
+    vector<int> nodes;
     if (root != nullptr) {
-        nodes.push_back(root);
-        vector<Node *> leftSubTree = getPreOrderTree(root->left);
+        nodes.push_back(root->data);
+        vector<int> leftSubTree = getPreOrderTree(root->left);
         nodes.insert(nodes.end(), leftSubTree.begin(), leftSubTree.end());
-        vector<Node *> rightSubTree = getPreOrderTree(root->right);
+        vector<int> rightSubTree = getPreOrderTree(root->right);
         nodes.insert(nodes.end(), rightSubTree.begin(), rightSubTree.end());
     }
 
     return nodes;
 }
 
-vector<Node *> getPostOrderTree(Node *root) {
-    vector<Node *> nodes;
+vector<int> getPostOrderTree(Node *root) {
+    vector<int> nodes;
     if (root != nullptr) {
-        vector<Node *> leftSubTree = getPostOrderTree(root->left);
+        vector<int> leftSubTree = getPostOrderTree(root->left);
         nodes.insert(nodes.begin(), leftSubTree.begin(), leftSubTree.end());
-        vector<Node *> rightSubTree = getPostOrderTree(root->right);
+        vector<int> rightSubTree = getPostOrderTree(root->right);
         nodes.insert(nodes.end(), rightSubTree.begin(), rightSubTree.end());
-        nodes.push_back(root);
+        nodes.push_back(root->data);
     }
 
     return nodes;
 }
 
-vector<Node *> getInOrderTree(Node *root) {
-    vector<Node *> nodes;
+vector<int> getInOrderTree(Node *root) {
+    vector<int> nodes;
     if (root != nullptr) {
-        vector<Node *> leftSubTree = getInOrderTree(root->left);
+        vector<int> leftSubTree = getInOrderTree(root->left);
         nodes.insert(nodes.begin(), leftSubTree.begin(), leftSubTree.end());
-        nodes.push_back(root);
-        vector<Node *> rightSubTree = getInOrderTree(root->right);
+        nodes.push_back(root->data);
+        vector<int> rightSubTree = getInOrderTree(root->right);
         nodes.insert(nodes.end(), rightSubTree.begin(), rightSubTree.end());
     }
 
     return nodes;
-}
-
-string getStringTreeFromVector(vector<Node *> tree) {
-    string result;
-    for (Node *node : tree) {
-        result += std::to_string(node->data) + " ";
-    }
-    return result;
 }
 
 /**
@@ -127,12 +120,40 @@ bool isDataPresentItr(Node *root, int data) {
 }
 
 /**
+ * Recursive insetion.
+ *       9
+ *      / \
+ *     8   15
+ *    /    /
+ *   7    11
+ */
+Node *insertNode(Node *target, Node *newNode) {
+    if (target == nullptr) {
+        // Insertion point is found when target is null.
+        // e.g. inserting 16 in the above tree. 15->right is null.
+        target = newNode;
+    } else if (newNode->data == target->data) {
+        // Do nothing.
+        cout << "Duplicate key not allowed." << endl;
+    } else if (newNode->data < target->data) {
+        // Recurse left subtree.
+        target->left = insertNode(target->left, newNode);
+    } else {
+        // Recurse right subtree.
+        target->right = insertNode(target->right, newNode);
+    }
+    return target;
+}
+
+/**
+ * Iterative insertion
+ *
  * @note BST insertion ensures unique position of every new node and nodes are added without moving or replacing existing ones.
  *      - The structure of the tree is maintained.
  *      - The new node would always be inserted as left node.
  *      - No existing node would get replaced as duplicates are not allowed.
  */
-bool insertNode(Node *target, Node *newNode) {
+bool insertNodeItr(Node *target, Node *newNode) {
     if (target == nullptr) {
         cout << "Target tree is empty. Cannot insert" << newNode->data << endl;
         return false;
@@ -306,9 +327,9 @@ int main() {
     cout << "\n";
 
     // Print the trees in different orders.
-    cout << "Tree (pre order traversal): " << getStringTreeFromVector(getPreOrderTree(root)) << endl;
-    cout << "Tree (post order traversal): " << getStringTreeFromVector(getPostOrderTree(root)) << endl;
-    cout << "Tree (in order traversal): " << getStringTreeFromVector(getInOrderTree(root)) << endl;
+    cout << "Tree (pre order traversal): " << vectorIntToString(getPreOrderTree(root)) << endl;
+    cout << "Tree (post order traversal): " << vectorIntToString(getPostOrderTree(root)) << endl;
+    cout << "Tree (in order traversal): " << vectorIntToString(getInOrderTree(root)) << endl;
     cout << "\n";
 
     // Search the tree.
@@ -317,7 +338,7 @@ int main() {
     cout << "\n";
 
     // Insert new node.
-    Node *newNode = new Node(7);
+    Node *newNode = new Node(-2);
     insertNode(root, newNode);
     cout << "Tree Structure after inserting " << newNode->data << endl;
     printTree(root);

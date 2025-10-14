@@ -3,9 +3,9 @@
  *
  * @ref https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/description
  */
+#include "../Utils.cpp"
 #include <iostream>
 #include <vector>
-#include "../Utils.cpp"
 
 using namespace std;
 
@@ -13,12 +13,10 @@ using namespace std;
  * Optimal solution.
  * This is not mine. I got this from LeetCode's "Solutions" tab.
  */
-vector<bool> kidsWithCandies(vector<int> &candies, int extraCandies)
-{
+vector<bool> kidsWithCandies(vector<int> &candies, int extraCandies) {
     // Find out the child with maximum candies.
     int maxCandies = 0;
-    for (int idx = 0; idx < candies.size(); idx++)
-    {
+    for (int idx = 0; idx < candies.size(); idx++) {
         maxCandies =
             candies.at(idx) > maxCandies ? candies.at(idx) : maxCandies;
     }
@@ -26,8 +24,7 @@ vector<bool> kidsWithCandies(vector<int> &candies, int extraCandies)
     // Check if after giving extra candies to the child, does the child have
     // greatest number of candies.
     vector<bool> result = {};
-    for (int idx = 0; idx < candies.size(); idx++)
-    {
+    for (int idx = 0; idx < candies.size(); idx++) {
         bool hasGreatestCandies =
             (candies.at(idx) + extraCandies) >= maxCandies;
         result.push_back(hasGreatestCandies);
@@ -36,8 +33,7 @@ vector<bool> kidsWithCandies(vector<int> &candies, int extraCandies)
     return result;
 }
 
-int main()
-{
+int main() {
     // vector<int> candies = {2, 3, 5, 1, 3};
     // int extraCandies = 3;
 
@@ -47,8 +43,8 @@ int main()
     // vector<int> candies = {12, 1, 12};
     // int extraCandies = 10;
 
-    cout << "Candies: " << vectorToString(candies) << endl;
-    cout << "Result: " << vectorToString3(kidsWithCandies(candies, extraCandies)) << endl;
+    cout << "Candies: " << vectorIntToString(candies) << endl;
+    cout << "Result: " << vectorBoolToString(kidsWithCandies(candies, extraCandies)) << endl;
 
     return 0;
 }

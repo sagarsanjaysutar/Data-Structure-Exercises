@@ -13,22 +13,20 @@
  * @note To understand this algorithm, one needs to know about right shifting an array using a reverse loop.
  *       It's a bit un intuitive as left-shifting using forward loop is more intuitive.
  */
+#include "Utils.cpp"
 #include <iostream>
 #include <vector>
-#include "Utils.cpp"
 
 using namespace std;
 
-int main()
-{
+int main() {
 
     vector<int> intVec = {8, 7, 6, 5, 4, 3, 2, 1, 0};
 
-    cout << "Original Vector: " << vectorToString(intVec) << endl;
+    cout << "Original Vector: " << vectorIntToString(intVec) << endl;
 
     // Start from 1st idx as 0th is considered sorted.
-    for (int i = 1; i < intVec.size(); i++)
-    {
+    for (int i = 1; i < intVec.size(); i++) {
         // Value that needs to be compared.
         int value = intVec.at(i);
 
@@ -39,8 +37,7 @@ int main()
         // If "value" is smaller than the preceding element then,
         //  - we right-shift all elements
         //  - place the "value" in the "correct position".
-        for (j; j > 0 && intVec.at(j - 1) > value; j--)
-        {
+        for (j; j > 0 && intVec.at(j - 1) > value; j--) {
             intVec.at(j) = intVec.at(j - 1);
         }
 
@@ -48,7 +45,7 @@ int main()
         intVec.at(j) = value;
     }
 
-    cout << "Sorted Vector: " << vectorToString(intVec) << endl;
+    cout << "Sorted Vector: " << vectorIntToString(intVec) << endl;
 }
 
 /**
@@ -58,7 +55,7 @@ int main()
     // for (int i = 0; i < intVec.size() - 1; i++)
     // {
     //     intVec.at(i) = intVec.at(i + 1);
-    //     cout << "Shifted Array at " << i << " index: \t" << vectorToString(intVec) << endl;
+    //     cout << "Shifted Array at " << i << " index: \t" << vectorIntToString(intVec) << endl;
     // }
     // return 0;
 
@@ -66,7 +63,7 @@ int main()
     // for (int i = intVec.size() - 1; i > 0; --i)
     // {
     //     intVec.at(i) = intVec.at(i - 1);
-    //     cout << "Shifted Array at " << i << " index: \t" << vectorToString(intVec) << endl;
+    //     cout << "Shifted Array at " << i << " index: \t" << vectorIntToString(intVec) << endl;
     // }
     // return 0;
 

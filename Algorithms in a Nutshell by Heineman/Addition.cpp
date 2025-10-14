@@ -5,23 +5,21 @@
  *
  * @ref Pg. 33: Algorithms in a Nutshell by Heineman.
  */
-#include <iostream>
-#include <vector>
-#include <sstream>
 #include "../Utils.cpp"
 #include <deque>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
 /**
  * @brief Resizes the array to new length & prepends padValue.
  */
-vector<int> padVectorFront(vector<int> v, int newLength, int padValue)
-{
+vector<int> padVectorFront(vector<int> v, int newLength, int padValue) {
     // Note: Deque is used for efficient prepending.
     deque<int> d(v.begin(), v.end());
-    for (int idx = 0; idx < newLength; idx++)
-    {
+    for (int idx = 0; idx < newLength; idx++) {
         d.push_front(padValue);
     }
     return vector<int>(d.begin(), d.end());
@@ -30,18 +28,15 @@ vector<int> padVectorFront(vector<int> v, int newLength, int padValue)
 /**
  * @brief Adds two number with equal no. of digits.
  * */
-int add(vector<int> &x, vector<int> &y)
-{
+int add(vector<int> &x, vector<int> &y) {
 
     // Equalize vector lengths for easier calculations.
     int xSize = x.size();
     int ySize = y.size();
-    if (xSize > ySize)
-    {
+    if (xSize > ySize) {
         y = padVectorFront(y, xSize - ySize, 0);
     }
-    if (ySize > xSize)
-    {
+    if (ySize > xSize) {
         x = padVectorFront(x, ySize - xSize, 0);
     }
 
@@ -53,12 +48,10 @@ int add(vector<int> &x, vector<int> &y)
     int pointer = x.size() - 1;
     int carry = 0;
 
-    while (pointer >= 0)
-    {
+    while (pointer >= 0) {
 
         int total = x.at(pointer) + y.at(pointer) + carry; // Add digit of x & y + carry.
-        if (total > 9)
-        {
+        if (total > 9) {
 
             // If the sum of two digits is greater than 9:
             // a. Carry over 1 to the next digit addition.
@@ -81,9 +74,7 @@ int add(vector<int> &x, vector<int> &y)
             // Note that the + 1 is so that we can have an extra element in the beginning of the sum vector
             sum.at(pointer + 1) = remainder;
             carry = 1;
-        }
-        else
-        {
+        } else {
             sum.at(pointer + 1) = total;
             carry = 0;
         }
@@ -93,8 +84,7 @@ int add(vector<int> &x, vector<int> &y)
     }
 
     stringstream sumStream("", ios_base::app | ios_base::out);
-    for (int digit : sum)
-    {
+    for (int digit : sum) {
         sumStream << std::to_string(digit);
     }
 
@@ -108,18 +98,15 @@ int add(vector<int> &x, vector<int> &y)
  * we'd have to build the integer out of the vectors & then do the comparison.
  * This defeats the purpose of this exercise.
  */
-int sub(vector<int> &x, vector<int> &y)
-{
+int sub(vector<int> &x, vector<int> &y) {
 
     // Equalize vector lengths for easier calculations.
     int xSize = x.size();
     int ySize = y.size();
-    if (xSize > ySize)
-    {
+    if (xSize > ySize) {
         y = padVectorFront(y, xSize - ySize, 0);
     }
-    if (ySize > xSize)
-    {
+    if (ySize > xSize) {
         x = padVectorFront(x, ySize - xSize, 0);
     }
 
@@ -130,14 +117,10 @@ int sub(vector<int> &x, vector<int> &y)
     // A pointer pointing to the last element of x as we subtract digits from right to left.
     int pointer = x.size() - 1;
 
-    while (pointer >= 0)
-    {
-        if (x.at(pointer) >= y.at(pointer))
-        {
+    while (pointer >= 0) {
+        if (x.at(pointer) >= y.at(pointer)) {
             res.at(pointer) = x.at(pointer) - y.at(pointer);
-        }
-        else
-        {
+        } else {
             // +10 as we've borrowed 1 from the preceding element.
             res.at(pointer) = (x.at(pointer) + 10) - y.at(pointer);
 
@@ -150,19 +133,17 @@ int sub(vector<int> &x, vector<int> &y)
     }
 
     stringstream sumStream("", ios_base::app | ios_base::out);
-    for (int digit : res)
-    {
+    for (int digit : res) {
         sumStream << std::to_string(digit);
     }
 
     return stoi(sumStream.str());
 }
 
-int main()
-{
+int main() {
     vector<int> x = {9, 8, 6, 1, 9};
     vector<int> y = {1, 1, 1, 1};
-    cout << "Sum of adding " << vectorToString(x) << " and " << vectorToString(y) << ": " << add(x, y) << endl;
-    cout << "Substracting " << vectorToString(x) << " from " << vectorToString(y) << ": " << sub(x, y) << endl;
+    cout << "Sum of adding " << vectorIntToString(x) << " and " << vectorIntToString(y) << ": " << add(x, y) << endl;
+    cout << "Substracting " << vectorIntToString(x) << " from " << vectorIntToString(y) << ": " << sub(x, y) << endl;
     return 0;
 }

@@ -9,15 +9,14 @@
  * @ref https://www.programiz.com/dsa/quick-sort
  */
 
-#include <iostream>
-#include <vector>
-#include <map>
 #include "Utils.cpp"
+#include <iostream>
+#include <map>
+#include <vector>
 
 using namespace std;
 
-map<int, vector<int>> rearrangeVec(vector<int> vec)
-{
+map<int, vector<int>> rearrangeVec(vector<int> vec) {
 
     // Right most element is the pivot.
     int pivotIdx = vec.size() - 1;
@@ -25,18 +24,15 @@ map<int, vector<int>> rearrangeVec(vector<int> vec)
     int idx = 0;
 
     // Place all the smaller elements to the left of the pivot & greater ones to the right.
-    while (idx < pivotIdx)
-    {
+    while (idx < pivotIdx) {
 
         // Condition: If maxVal is found, push it to the end.
         // Note: This is a non-optimal solution because of the 2 loops.
-        if (vec.at(idx) >= vec.at(pivotIdx))
-        {
+        if (vec.at(idx) >= vec.at(pivotIdx)) {
             int maxVal = vec.at(idx);
 
             // Place the maxVal at the end of vector & shift all elements towards left by 1.
-            for (int i = idx; i < vec.size() - 1; i++)
-            {
+            for (int i = idx; i < vec.size() - 1; i++) {
                 vec.at(i) = vec.at(i + 1);
             }
             vec.at(vec.size() - 1) = maxVal;
@@ -46,8 +42,7 @@ map<int, vector<int>> rearrangeVec(vector<int> vec)
         }
 
         // Check if the mutated vector follows the Condition
-        if (vec.at(idx) < vec.at(pivotIdx))
-        {
+        if (vec.at(idx) < vec.at(pivotIdx)) {
             idx++;
         }
     }
@@ -55,10 +50,8 @@ map<int, vector<int>> rearrangeVec(vector<int> vec)
     return {{pivotIdx, vec}};
 }
 
-vector<int> quickSort(vector<int> vec)
-{
-    if (vec.size() <= 1)
-    {
+vector<int> quickSort(vector<int> vec) {
+    if (vec.size() <= 1) {
         return vec;
     }
 
@@ -81,11 +74,10 @@ vector<int> quickSort(vector<int> vec)
     return leftVec;
 }
 
-int main()
-{
+int main() {
     vector<int> vec = getRandomVector();
-    cout << "Original Vector: " << vectorToString(vec) << endl;
+    cout << "Original Vector: " << vectorIntToString(vec) << endl;
     vector<int> sortedVec(quickSort(vec));
-    cout << "Sorted Vector: " << vectorToString(sortedVec) << endl;
+    cout << "Sorted Vector: " << vectorIntToString(sortedVec) << endl;
     return 0;
 }
