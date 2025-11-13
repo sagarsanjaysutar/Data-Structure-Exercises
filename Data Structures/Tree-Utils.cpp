@@ -1,3 +1,6 @@
+/**
+ * @brief Tree visualization and debugging utilities for binary tree algorithms.
+ */
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -5,6 +8,9 @@
 
 using namespace std;
 
+/**
+ * @brief Data structure representing a node of the tree.
+ */
 class Node {
 public:
     int data;
@@ -15,14 +21,18 @@ public:
     Node(int value) : data(value), left(nullptr), right(nullptr), height(1) {};
 };
 
-// Helper function to compute the height of the tree
+/**
+ * @brief Ignore this. Its a helper function for `void printTree()`.
+ */
 int treeHeight(Node *root) {
     if (!root)
         return 0;
     return 1 + std::max(treeHeight(root->left), treeHeight(root->right));
 }
 
-// Helper function to print levels.
+/**
+ * @brief Ignore this. Its a helper function for `void printTree()`.
+ */
 void printLevel(const std::vector<Node *> &nodes, int level, int maxLevel) {
     if (nodes.empty() || std::all_of(nodes.begin(), nodes.end(), [](Node *n) { return n == nullptr; })) {
         return;
@@ -88,14 +98,17 @@ void printLevel(const std::vector<Node *> &nodes, int level, int maxLevel) {
     printLevel(newNodes, level + 1, maxLevel);
 }
 
-// Main function that prints the tree.
+/**
+ * @brief Prints a tree starting from the given root.
+ * @ref This function is generated via Perplexity.
+ */
 void printTree(Node *root) {
     int maxLevel = treeHeight(root);
     printLevel({root}, 1, maxLevel);
 }
 
 /**
- * Prints the node data: Left Node Data, Current Node Data, Right Node Data
+ * @brief Returns a string form of node data <Left Node Data, Current Node Data, Right Node Data>
  */
 string getNodeStr(const Node *node) {
     if (node == nullptr) {

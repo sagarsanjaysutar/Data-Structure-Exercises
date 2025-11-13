@@ -1,3 +1,6 @@
+/**
+ * @brief Utility functions for testing and debugging algorithms.
+ */
 #include <iostream>
 #include <map>
 #include <random>
@@ -7,7 +10,7 @@
 using namespace std;
 
 /**
- * @brief Helper function to print vector.
+ * @brief Returns a string form of an int vector.
  */
 string vectorIntToString(vector<int> vec) {
     stringstream vecStr;
@@ -22,7 +25,7 @@ string vectorIntToString(vector<int> vec) {
 }
 
 /**
- * @brief Helper function to print vector.
+ * @brief Returns a string form of a string vector.
  */
 string vectorStringToString(vector<string> vec) {
     stringstream vecStr;
@@ -36,6 +39,9 @@ string vectorStringToString(vector<string> vec) {
     return vecStr.str();
 }
 
+/**
+ * @brief Returns a string form of a boolean vector.
+ */
 string vectorBoolToString(vector<bool> vec) {
     stringstream vecStr;
     vecStr << "{";
@@ -49,7 +55,8 @@ string vectorBoolToString(vector<bool> vec) {
 }
 
 /**
- * Got this code from Perplexity.
+ * @brief Returns a random integer from the given range.
+ * @ref Got this code from Perplexity.
  */
 int getRandomNumber(int low, int high) {
     static std::mt19937 gen{std::random_device{}()};
@@ -57,7 +64,7 @@ int getRandomNumber(int low, int high) {
 }
 
 /**
- * Returns a random vector.
+ * @brief Returns a random int vector. 
  * This is to stress test the code on variety of vectors.
  */
 vector<int> getRandomVector() {
@@ -89,6 +96,10 @@ vector<int> getRandomVector() {
     return randomVectors.at(getRandomNumber(0, randomVectors.size() - 1));
 }
 
+/**
+ * @brief Prints a "vector-of-vector" variable. 
+ * Useful while debugging.
+ */
 void printVectorOfVectors(const vector<vector<int>> &vec) {
     for (size_t i = 0; i < vec.size(); ++i) {
         cout << "Path " << i << ": [";

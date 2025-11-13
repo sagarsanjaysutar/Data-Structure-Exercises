@@ -13,7 +13,7 @@
  * @note To understand this algorithm, one needs to know about right shifting an array using a reverse loop.
  *       It's a bit un intuitive as left-shifting using forward loop is more intuitive.
  */
-#include "Utils.cpp"
+#include "../Utils.cpp"
 #include <iostream>
 #include <vector>
 
