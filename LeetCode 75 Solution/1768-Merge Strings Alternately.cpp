@@ -1,7 +1,16 @@
 /**
  * Merge Strings Alternately
+ * @ref https://leetcode.com/problems/merge-strings-alternately/description/* 
  *
- * @ref https://leetcode.com/problems/merge-strings-alternately/description/
+ * ## Describe the problem in your own words.
+ * @date 15th December 2025
+ * The problem states to return a string. This string contains 2 merged strings, but not in a back-to-back method.
+ * It has to be in a weaving methods, A1 B1 A2 B2...n.
+ * 
+ * ## What was the final approach that solved the problem?
+ * @date 15th December 2025
+ * The solution involves iterating the smaller string, within which each letter from both words is appended into resultant string.
+ * The remainings words from the larger strings are appended as they are.
  */
 #include <iostream>
 

@@ -1,7 +1,20 @@
 /**
  * Reverse Vowels of a String
- *
  * @ref https://leetcode.com/problems/reverse-vowels-of-a-string
+ * 
+ * ## Describe the problem in your own words.
+ * @date 16th December 2025
+ * 1. The problem states to return a string.
+ * 2. This string contains a word with its vowel-sequence in reversed order.
+ * 3. e.g. Icecream has [I, e, e, a] vowels at [0, 2, 5, 6] position.
+ * 4. The resultant string would be acecreIm. Earlier I was in 0th pos & now it is in 6th pos. & so forth.
+ * 
+ * * ## What was the approach that solved the problem?
+ * @date 16th December 2025
+ * 1. The solution involves iterating the string & making array for vowelsInString & vowelsPosition.
+ * 2. Reverse the vowelPosition array.
+ * 3. Now insert vowelChar using vowelPosition while iterating the original string.
+ * 4. The above is a niche logic but it ends up reversing the vowels due to step 2.
  */
 #include <iostream>
 #include <algorithm>
@@ -16,7 +29,7 @@ string reverseVowels(string s)
 
     // Find out the vowel position & the corresponding char in the string.
     vector<int> vowelPositions;
-    vector<int> vowelChar;
+    vector<char> vowelChar;
     for (int idx = 0; idx < s.size(); idx++)
     {
         if (find(vowels.begin(), vowels.end(), s.at(idx)) != vowels.end())
@@ -32,6 +45,10 @@ string reverseVowels(string s)
     {
         reverseVowelPositions.push_back(vowelPositions.at(idx));
     }
+    cout << "\n======\n";
+    cout << vectorIntToString(vowelPositions) << endl;
+    cout << vectorCharToString(vowelChar) << endl;
+    cout << vectorIntToString(reverseVowelPositions) << endl;
 
     // Replace the vowels in original string with reversed-vowels.
     for (int idx = 0; idx < reverseVowelPositions.size(); idx++)

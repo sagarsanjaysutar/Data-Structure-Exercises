@@ -1,7 +1,23 @@
 /**
  * Can Place Flowers
- *
  * @ref https://leetcode.com/problems/can-place-flowers/description
+ * 
+ * ## Describe the problem in your own words.
+ * @date 16th December 2025
+ * 1. The problem states to return a boolean value.
+ * 2. This boolean value represents whether `n` no. of new flowers can be planted in a flowerbed.
+ * 3. The flowerbed is represented using an array e.g. [1, 0, 0, 1, 0] where 0 means an empty plot & 1 means non-empty plot.
+ * 4. The catch is we can't directly plant flowers in the empty plots. There is a condition. This condition states that 
+ *    a new plant can only be planted into an empty plot if the adjacent plots are empty as well.
+ * 5. e.g. In [1,0,0,0,1], only 1 new plant can be planted at 2nd Index.
+ *    e.g. In [1,0,0,1], no new plant can be planted. Both 1st & 2nd index don't have empty adjacent plots.
+ * 
+ * ## What was the approach that solved the problem?
+ * @date 16th December 2025
+ * 1. The solution involves iterating the flower bed array.
+ * 2. Return true in all these edge case.: [0], [...,0,0], [0,0,...]. 
+ * 3. Add check to see current, previous & next position for empty plot & return true accordingly.
+ * 
  */
 #include "../Utils.cpp"
 #include <iostream>

@@ -25,6 +25,21 @@ string vectorIntToString(vector<int> vec) {
 }
 
 /**
+ * @brief Returns a string form of an int vector.
+ */
+string vectorCharToString(vector<char> vec) {
+    stringstream vecStr;
+    vecStr << "{";
+    for (int i = 0; i < vec.size(); ++i) {
+        vecStr << vec[i];
+        if (i < vec.size() - 1)
+            vecStr << ", ";
+    }
+    vecStr << "}";
+    return vecStr.str();
+}
+
+/**
  * @brief Returns a string form of a string vector.
  */
 string vectorStringToString(vector<string> vec) {
