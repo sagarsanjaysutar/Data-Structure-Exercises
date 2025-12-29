@@ -2,17 +2,19 @@
  * Refer: https://archive.codewithharry.com/videos/data-structures-and-algorithms-in-hindi-78/
  */
 #include "../Utils.cpp"
-#include "Utils.cpp"
+#include "Tree-Utils.cpp"
 #include <iostream>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-vector<int> getPreOrderTree(Node *root) {
+vector<int> getPreOrderTree(TreeNode *root)
+{
     vector<int> nodes;
-    if (root != nullptr) {
-        nodes.push_back(root->data);
+    if (root != nullptr)
+    {
+        nodes.push_back(root->val);
         vector<int> leftSubTree = getPreOrderTree(root->left);
         nodes.insert(nodes.end(), leftSubTree.begin(), leftSubTree.end());
         vector<int> rightSubTree = getPreOrderTree(root->right);
@@ -22,25 +24,29 @@ vector<int> getPreOrderTree(Node *root) {
     return nodes;
 }
 
-vector<int> getPostOrderTree(Node *root) {
+vector<int> getPostOrderTree(TreeNode *root)
+{
     vector<int> nodes;
-    if (root != nullptr) {
+    if (root != nullptr)
+    {
         vector<int> leftSubTree = getPostOrderTree(root->left);
         nodes.insert(nodes.begin(), leftSubTree.begin(), leftSubTree.end());
         vector<int> rightSubTree = getPostOrderTree(root->right);
         nodes.insert(nodes.end(), rightSubTree.begin(), rightSubTree.end());
-        nodes.push_back(root->data);
+        nodes.push_back(root->val);
     }
 
     return nodes;
 }
 
-vector<int> getInOrderTree(Node *root) {
+vector<int> getInOrderTree(TreeNode *root)
+{
     vector<int> nodes;
-    if (root != nullptr) {
+    if (root != nullptr)
+    {
         vector<int> leftSubTree = getInOrderTree(root->left);
         nodes.insert(nodes.begin(), leftSubTree.begin(), leftSubTree.end());
-        nodes.push_back(root->data);
+        nodes.push_back(root->val);
         vector<int> rightSubTree = getInOrderTree(root->right);
         nodes.insert(nodes.end(), rightSubTree.begin(), rightSubTree.end());
     }
@@ -51,9 +57,11 @@ vector<int> getInOrderTree(Node *root) {
 /**
  * @brief BST Validity operation
  */
-bool isBST(Node *root) {
-    static Node *previousNode = nullptr;
-    if (root != nullptr) {
+bool isBST(TreeNode *root)
+{
+    static TreeNode *previousNode = nullptr;
+    if (root != nullptr)
+    {
         // Check if the left tree is BST.
         bool isLeftBST = isBST(root->left);
         if (!isLeftBST)
@@ -62,7 +70,7 @@ bool isBST(Node *root) {
         // Check if the root node is BST. Previous node is last visited node.
         // e.g., If left-most leaf is BST, then "that" recurssion call returns true &
         // we'd be moving up from the leaf node (previous) to parent node (current node).
-        bool isRootBST = previousNode == nullptr || root->data >= previousNode->data;
+        bool isRootBST = previousNode == nullptr || root->val >= previousNode->val;
         if (!isRootBST)
             return false;
 
@@ -75,7 +83,9 @@ bool isBST(Node *root) {
             return false;
         else
             return true;
-    } else {
+    }
+    else
+    {
         // Empty tree is a BST.
         return true;
     }
@@ -84,19 +94,28 @@ bool isBST(Node *root) {
 /**
  * @brief Search operation (Recursive)
  */
-bool isDataPresent(Node *root, int data) {
-    if (root != nullptr) {
-        if (root->data == data) {
+bool isDataPresent(TreeNode *root, int data)
+{
+    if (root != nullptr)
+    {
+        if (root->val == data)
+        {
             // Key found
             return true;
-        } else if (data < root->data) {
+        }
+        else if (data < root->val)
+        {
             // Check in the left subtree.
             return isDataPresent(root->left, data);
-        } else {
+        }
+        else
+        {
             // Check in the right subtree.
             return isDataPresent(root->right, data);
         }
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -104,12 +123,14 @@ bool isDataPresent(Node *root, int data) {
 /**
  * @brief Search operation (Iterative)
  */
-bool isDataPresentItr(Node *root, int data) {
-    while (root != nullptr) {
-        if (data == root->data)
+bool isDataPresentItr(TreeNode *root, int data)
+{
+    while (root != nullptr)
+    {
+        if (data == root->val)
             // Data found.
             return true;
-        else if (data < root->data)
+        else if (data < root->val)
             // Despite changing the root pointer (parameter vairable), the original root pointer stays as is. Parameter is pass-by-value.
             root = root->left;
         else
@@ -127,18 +148,26 @@ bool isDataPresentItr(Node *root, int data) {
  *    /    /
  *   7    11
  */
-Node *insertNode(Node *target, Node *newNode) {
-    if (target == nullptr) {
+TreeNode *insertNode(TreeNode *target, TreeNode *newNode)
+{
+    if (target == nullptr)
+    {
         // Insertion point is found when target is null.
         // e.g. inserting 16 in the above tree. 15->right is null.
         target = newNode;
-    } else if (newNode->data == target->data) {
+    }
+    else if (newNode->val == target->val)
+    {
         // Do nothing.
         cout << "Duplicate key not allowed." << endl;
-    } else if (newNode->data < target->data) {
+    }
+    else if (newNode->val < target->val)
+    {
         // Recurse left subtree.
         target->left = insertNode(target->left, newNode);
-    } else {
+    }
+    else
+    {
         // Recurse right subtree.
         target->right = insertNode(target->right, newNode);
     }
@@ -153,25 +182,35 @@ Node *insertNode(Node *target, Node *newNode) {
  *      - The new node would always be inserted as left node.
  *      - No existing node would get replaced as duplicates are not allowed.
  */
-bool insertNodeItr(Node *target, Node *newNode) {
-    if (target == nullptr) {
-        cout << "Target tree is empty. Cannot insert" << newNode->data << endl;
+bool insertNodeItr(TreeNode *target, TreeNode *newNode)
+{
+    if (target == nullptr)
+    {
+        cout << "Target tree is empty. Cannot insert" << newNode->val << endl;
         return false;
-    } else {
+    }
+    else
+    {
         // Points to the last visited node.
-        Node *lastVisitedNode;
+        TreeNode *lastVisitedNode;
 
         // Loop exits when target points at null. This is when we have found the parent node under which newNode needs to be inserted.
-        while (target != nullptr) {
+        while (target != nullptr)
+        {
             lastVisitedNode = target;
-            if (newNode->data == target->data) {
-                cout << "Node already exists. Cannot add duplicate " << newNode->data << endl;
+            if (newNode->val == target->val)
+            {
+                cout << "TreeNode already exists. Cannot add duplicate " << newNode->val << endl;
                 return false;
-            } else if (newNode->data < target->data) {
+            }
+            else if (newNode->val < target->val)
+            {
                 // The target (local pointer) now points to the left.
                 // Note: We are not changing the target tree by doing target->left = xyz. We are travering by writing target = target->left;.
                 target = target->left;
-            } else {
+            }
+            else
+            {
                 // The target (local pointer) now points to the right.
                 // Note: We are not changing the target tree by doing target->right = xyz. We are travering by writing target = target->right;.
                 target = target->right;
@@ -179,11 +218,14 @@ bool insertNodeItr(Node *target, Node *newNode) {
         }
 
         // Given target now points at null, we insert the newNode in its respective place using lastVisitedNode.
-        if (newNode->data < lastVisitedNode->data) {
-            cout << "Node " << newNode->data << " added to the left of " << lastVisitedNode->data << endl;
+        if (newNode->val < lastVisitedNode->val)
+        {
+            cout << "TreeNode " << newNode->val << " added to the left of " << lastVisitedNode->val << endl;
             lastVisitedNode->left = newNode;
-        } else {
-            cout << "Node " << newNode->data << " added to the right of " << lastVisitedNode->data << endl;
+        }
+        else
+        {
+            cout << "TreeNode " << newNode->val << " added to the right of " << lastVisitedNode->val << endl;
             lastVisitedNode->right = newNode;
         }
 
@@ -212,17 +254,21 @@ bool insertNodeItr(Node *target, Node *newNode) {
  * 4. root->right != null   → root points to 47
  * 5. root->right == null   → STOP! Found predecessor: 47
  */
-Node *getInOrderPredecessor(Node *root) {
+TreeNode *getInOrderPredecessor(TreeNode *root)
+{
     root = root->left;
-    while (root->right != nullptr) {
+    while (root->right != nullptr)
+    {
         root = root->right;
     }
     return root;
 }
 
-Node *getInorderSuccessor(Node *root) {
+TreeNode *getInorderSuccessor(TreeNode *root)
+{
     root = root->right;
-    while (root->left != nullptr) {
+    while (root->left != nullptr)
+    {
         root = root->left;
     }
     return root;
@@ -233,58 +279,73 @@ Node *getInorderSuccessor(Node *root) {
  *              In subsequent recursive passes, it is node representing respective subtree.
  * @return Returns the new root of the subtree after deletion.
  */
-Node *deleteNode(Node *root, int key) {
-    if (root == nullptr) {
+TreeNode *deleteNode(TreeNode *root, int key)
+{
+    if (root == nullptr)
+    {
         return root;
     }
 
-    if (key < root->data) {
+    if (key < root->val)
+    {
         // Key is in left subtree.
         root->left = deleteNode(root->left, key);
-    } else if (key > root->data) {
+    }
+    else if (key > root->val)
+    {
         // Key is in right subtree.
         root->right = deleteNode(root->right, key);
-    } else if (key == root->data) {
+    }
+    else if (key == root->val)
+    {
         // Key to be delete is found in the root node.
 
-        if (root->left == nullptr && root->right == nullptr) {
+        if (root->left == nullptr && root->right == nullptr)
+        {
             // root node with no children is found i.e leaf node.
             // In this case, replace the deleted node (root) with nullptr.
             delete root;
             return nullptr;
-        } else if (root->left == nullptr) {
+        }
+        else if (root->left == nullptr)
+        {
             // If the left child is empty that means only right child is present.
             // Store the right child in a temp variable and delete the root.
             // In this case, replace the deleted node (root) with right child.
-            Node *temp = root->right;
+            TreeNode *temp = root->right;
             delete root;
             return temp;
-        } else if (root->right == nullptr) {
+        }
+        else if (root->right == nullptr)
+        {
             // If the right child is empty that means only left child is present.
             // Store the left child in a temp variable and delete the root.
             // In this case, replace the deleted node (root) with left child.
-            Node *temp = root->left;
+            TreeNode *temp = root->left;
             delete root;
             return temp;
-        } else {
-            // Node with two children is found.
+        }
+        else
+        {
+            // TreeNode with two children is found.
             // In this case, replace the deleted node(root) with predecessor node.
 
             // Find the predecessor node.
-            Node *predecessorNode = getInOrderPredecessor(root);
+            TreeNode *predecessorNode = getInOrderPredecessor(root);
 
             // Replace the root's data with predecessor node.
-            root->data = predecessorNode->data;
+            root->val = predecessorNode->val;
 
             // Delete the predecessor node (located in left subtree of root) from it's old position.
-            root->left = deleteNode(root->left, predecessorNode->data);
+            root->left = deleteNode(root->left, predecessorNode->val);
         }
     }
 
     return root;
 }
 
-int main() {
+int main()
+{
     /* Tree Structure
            4
           / \
@@ -292,22 +353,22 @@ int main() {
         / \ / \
        0  3 5 34
    */
-    // Node *root = new Node(4);
-    // Node *n1 = new Node(2);
-    // Node *n2 = new Node(8);
+    // TreeNode *root = new TreeNode(4);
+    // TreeNode *n1 = new TreeNode(2);
+    // TreeNode *n2 = new TreeNode(8);
 
-    // Node *n3 = new Node(0);
-    // Node *n4 = new Node(3);
-    // Node *n5 = new Node(5);
-    // Node *n6 = new Node(34);
+    // TreeNode *n3 = new TreeNode(0);
+    // TreeNode *n4 = new TreeNode(3);
+    // TreeNode *n5 = new TreeNode(5);
+    // TreeNode *n6 = new TreeNode(34);
 
-    Node *root = new Node(5);
-    Node *n1 = new Node(3);
-    Node *n2 = new Node(6);
+    TreeNode *root = new TreeNode(5);
+    TreeNode *n1 = new TreeNode(3);
+    TreeNode *n2 = new TreeNode(6);
 
-    Node *n3 = new Node(2);
-    Node *n4 = new Node(4);
-    Node *n5 = new Node(7);
+    TreeNode *n3 = new TreeNode(2);
+    TreeNode *n4 = new TreeNode(4);
+    TreeNode *n5 = new TreeNode(7);
 
     root->left = n1;
     root->right = n2;
@@ -317,7 +378,8 @@ int main() {
 
     n2->right = n5;
 
-    if (!isBST(root)) {
+    if (!isBST(root))
+    {
         cout << "Tree is not balanced. Cannot perform further actions on this. " << endl;
         return 1;
     }
@@ -338,9 +400,9 @@ int main() {
     cout << "\n";
 
     // Insert new node.
-    Node *newNode = new Node(-2);
+    TreeNode *newNode = new TreeNode(-2);
     insertNode(root, newNode);
-    cout << "Tree Structure after inserting " << newNode->data << endl;
+    cout << "Tree Structure after inserting " << newNode->val << endl;
     printTree(root);
     cout << "\n";
 

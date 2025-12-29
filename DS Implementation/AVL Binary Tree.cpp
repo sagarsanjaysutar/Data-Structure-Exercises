@@ -8,15 +8,18 @@
 
 using namespace std;
 
-int getHeight(Node *root) {
+int getHeight(TreeNode *root)
+{
     return root == nullptr ? 0 : root->height;
 }
 
-int max(int a, int b) {
+int max(int a, int b)
+{
     return a > b ? a : b;
 }
 
-int getBalanceFactor(Node *root) {
+int getBalanceFactor(TreeNode *root)
+{
     return root == nullptr ? 0 : getHeight(root->right) - getHeight(root->left);
 }
 
@@ -34,12 +37,13 @@ int getBalanceFactor(Node *root) {
  *        \
  *        21
  */
-Node *leftRotate(Node *root) {
+TreeNode *leftRotate(TreeNode *root)
+{
     // #00. The right child of the root will become the root.
-    Node *rootRight = root->right;
+    TreeNode *rootRight = root->right;
 
     // #01. Save the left child of rootRight (will be reattached later to maintain BST property).
-    Node *rootRightLeft = rootRight->left;
+    TreeNode *rootRightLeft = rootRight->left;
 
     // #02. Perform rotation: The right of the root now becomes the new root. The old root now goes to the left subtree.
     rootRight->left = root;
@@ -68,12 +72,13 @@ Node *leftRotate(Node *root) {
  *  /
  * 6
  */
-Node *rightRotate(Node *root) {
+TreeNode *rightRotate(TreeNode *root)
+{
     // #00 The left child of the root will become the root.
-    Node *rootLeft = root->left;
+    TreeNode *rootLeft = root->left;
 
     // #01. Save the right child of the rootLeft (will be reattached later to maintain BST property).
-    Node *rootLeftRight = rootLeft->right;
+    TreeNode *rootLeftRight = rootLeft->right;
 
     // #02. Perform rotation: The left of the root now becomes the new root. The old root now goes to the right subtree.
     rootLeft->right = root;
@@ -89,17 +94,24 @@ Node *rightRotate(Node *root) {
     return rootLeft;
 }
 
-Node *insert(Node *root, int key) {
-    if (root == nullptr) {
-        return new Node(key);
+TreeNode *insert(TreeNode *root, int key)
+{
+    if (root == nullptr)
+    {
+        return new TreeNode(key);
     }
 
     // #00. Traverse through the subtree using recursion.
-    if (key < root->data) {
+    if (key < root->val)
+    {
         root->left = insert(root->left, key);
-    } else if (key > root->data) {
+    }
+    else if (key > root->val)
+    {
         root->right = insert(root->right, key);
-    } else {
+    }
+    else
+    {
         return root; // Duplicate key
     }
 
@@ -108,24 +120,32 @@ Node *insert(Node *root, int key) {
 
     // #03. Check balance factor after insertion in #00. Rotate accordingly.
     int bf = getBalanceFactor(root);
-    if (bf < -1) {
+    if (bf < -1)
+    {
         // Left heavy tree.
-        if (key < root->left->data) {
+        if (key < root->left->val)
+        {
             // Left-left case has occurred; perform right-rotation with respect to root node.
             root = rightRotate(root);
-        } else if (key > root->left->data) {
+        }
+        else if (key > root->left->val)
+        {
             // Left-right case has occurred; perform right rotation on child of root followed by left-rotation on root.
             root->left = rightRotate(root->left);
             root = leftRotate(root);
         }
     }
 
-    if (bf > 1) {
+    if (bf > 1)
+    {
         // Right heavy tree.
-        if (key > root->right->data) {
+        if (key > root->right->val)
+        {
             // Right-Right case has occurred; perform left-rotation with respect to root node.
             root = leftRotate(root);
-        } else if (key < root->right->data) {
+        }
+        else if (key < root->right->val)
+        {
             // Right-Left case has occurred; perform left rotate on child of root followed by right-rotation on root.
             root->right = leftRotate(root->right);
             root = rightRotate(root);
@@ -135,8 +155,9 @@ Node *insert(Node *root, int key) {
     return root;
 }
 
-int main() {
-    Node *root = new Node(10);
+int main()
+{
+    TreeNode *root = new TreeNode(10);
     root = insert(root, 9);
     root = insert(root, 8);
     root = insert(root, 7);

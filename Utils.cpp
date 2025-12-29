@@ -12,10 +12,12 @@ using namespace std;
 /**
  * @brief Returns a string form of an int vector.
  */
-string vectorIntToString(vector<int> vec) {
+string vectorIntToString(vector<int> vec)
+{
     stringstream vecStr;
     vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i) {
+    for (int i = 0; i < vec.size(); ++i)
+    {
         vecStr << vec[i];
         if (i < vec.size() - 1)
             vecStr << ", ";
@@ -27,10 +29,12 @@ string vectorIntToString(vector<int> vec) {
 /**
  * @brief Returns a string form of an int vector.
  */
-string vectorCharToString(vector<char> vec) {
+string vectorCharToString(vector<char> vec)
+{
     stringstream vecStr;
     vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i) {
+    for (int i = 0; i < vec.size(); ++i)
+    {
         vecStr << vec[i];
         if (i < vec.size() - 1)
             vecStr << ", ";
@@ -42,10 +46,12 @@ string vectorCharToString(vector<char> vec) {
 /**
  * @brief Returns a string form of a string vector.
  */
-string vectorStringToString(vector<string> vec) {
+string vectorStringToString(vector<string> vec)
+{
     stringstream vecStr;
     vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i) {
+    for (int i = 0; i < vec.size(); ++i)
+    {
         vecStr << vec[i];
         if (i < vec.size() - 1)
             vecStr << ", ";
@@ -57,10 +63,12 @@ string vectorStringToString(vector<string> vec) {
 /**
  * @brief Returns a string form of a boolean vector.
  */
-string vectorBoolToString(vector<bool> vec) {
+string vectorBoolToString(vector<bool> vec)
+{
     stringstream vecStr;
     vecStr << "{";
-    for (int i = 0; i < vec.size(); ++i) {
+    for (int i = 0; i < vec.size(); ++i)
+    {
         vecStr << (vec[i] ? "True" : "False");
         if (i < vec.size() - 1)
             vecStr << ", ";
@@ -73,16 +81,18 @@ string vectorBoolToString(vector<bool> vec) {
  * @brief Returns a random integer from the given range.
  * @ref Got this code from Perplexity.
  */
-int getRandomNumber(int low, int high) {
+int getRandomNumber(int low, int high)
+{
     static std::mt19937 gen{std::random_device{}()};
     return std::uniform_int_distribution<>(low, high)(gen);
 }
 
 /**
- * @brief Returns a random int vector. 
+ * @brief Returns a random int vector.
  * This is to stress test the code on variety of vectors.
  */
-vector<int> getRandomVector() {
+vector<int> getRandomVector()
+{
     map<int, vector<int>> randomVectors;
 
     randomVectors[0] = {3, 4, 5, 2, 3, 4, 5, 3, 34, 5};
@@ -112,13 +122,16 @@ vector<int> getRandomVector() {
 }
 
 /**
- * @brief Prints a "vector-of-vector" variable. 
+ * @brief Prints a "vector-of-vector" variable.
  * Useful while debugging.
  */
-void printVectorOfVectors(const vector<vector<int>> &vec) {
-    for (size_t i = 0; i < vec.size(); ++i) {
+void printVectorOfVectors(const vector<vector<int>> &vec)
+{
+    for (size_t i = 0; i < vec.size(); ++i)
+    {
         cout << "Path " << i << ": [";
-        for (size_t j = 0; j < vec[i].size(); ++j) {
+        for (size_t j = 0; j < vec[i].size(); ++j)
+        {
             cout << vec[i][j];
             if (j + 1 < vec[i].size())
                 cout << ", ";
